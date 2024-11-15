@@ -1,5 +1,0 @@
-flask==2.3.2
-transformers==4.28.0
-torch==2.5.0
-pytest==7.3.1
-prometheus-client==0.16.0
