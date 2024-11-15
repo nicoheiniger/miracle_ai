@@ -1,5 +1,6 @@
 from transformers import pipeline
 
-classifier = pipeline("sentiment-analysis")
-result = classifier("Crypto rocks!")
-print(result)
+def test_pipeline_loads():
+    classifier = pipeline("sentiment-analysis")
+    result = classifier("Crypto rocks.")
+    assert result[0]["label"] in ["POSITIVE", "NEGATIVE"]
