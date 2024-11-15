@@ -1,5 +1,5 @@
-def greet(name):
-    return f"Hello, {name}!"
+from transformers import pipeline
 
-if __name__ == "__main__":
-    print(greet("world."))
+classifier = pipeline("sentiment-analysis")
+result = classifier("Crypto rocks!")
+print(result)
