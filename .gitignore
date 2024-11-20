@@ -1,0 +1,24 @@
+# Exclude data and output folders
+data/
+output/
+
+# Hidden system files
+.DS_Store
+Thumbs.db
+
+# Python-related ignores
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+env/
+venv/
+*.env
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Logs and temporary files
+*.log
+*.tmp
+*.bak
