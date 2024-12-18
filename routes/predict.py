@@ -23,7 +23,7 @@ def process_request(input_text, input_timestamp):
     # If not beneficial, return only benefit prediction
     if benefit == 0:
         return {
-            "benefit": benefit,
+            "benefit": int(benefit),  # Ensure it's a Python int
             "filtered_dates": [],
             "title": "",
             "urls": [],
