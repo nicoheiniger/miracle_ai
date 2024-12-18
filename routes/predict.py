@@ -1,13 +1,13 @@
-from flask import Flask, request, jsonify
-import re
-import pandas as pd
-from datetime import timedelta
+from flask import Blueprint, request, jsonify
 from utils.preprocessing import preprocess_content, remove_urls
-from utils.classification import svm, vectorizer
+from utils.classification import load_classification_models, predict_benefit
 from utils.extraction import extract_urls, extract_dates, generate_title, generate_summary, extract_tickers
 from utils.postprocessing import clean_urls, filter_dates
 
-app = Flask(__name__)
+predict_bp = Blueprint("predict", __name__)
+
+# Load SVM model and vectorizer
+svm, vectorizer = load_classification_models()
 
 def process_request(input_text, input_timestamp):
     """
@@ -18,8 +18,7 @@ def process_request(input_text, input_timestamp):
     cleaned_text = remove_urls(cleaned_text_url)
 
     # Classification
-    classification_features = vectorizer.transform([cleaned_text])
-    benefit = svm.predict(classification_features)[0]
+    benefit = predict_benefit(svm, vectorizer, [cleaned_text])[0]
 
     # If not beneficial, return only benefit prediction
     if benefit == 0:
@@ -53,7 +52,7 @@ def process_request(input_text, input_timestamp):
         "description": description,
     }
 
-@app.route("/predict", methods=["POST"])
+@predict_bp.route("/predict", methods=["POST"])
 def predict():
     """
     Flask route to handle POST requests for predictions.
@@ -74,6 +73,3 @@ def predict():
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
-
-if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000)

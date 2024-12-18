@@ -10,7 +10,10 @@ COPY requirements.txt requirements.txt
 # Install Python dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy the application code into the container
+# Install spaCy language model
+RUN python -m spacy download en_core_web_sm
+
+# Copy the entire project directory into the container
 COPY . .
 
 # Expose the port your Flask app will run on (default is 5000 for Flask)
