@@ -44,12 +44,12 @@ def process_request(input_text, input_timestamp):
 
     # Final response
     return {
-        "benefit": benefit,
-        "filtered_dates": filtered_dates,
-        "title": title,
+        "benefit": int(benefit),  # Ensure it's a Python int
+        "filtered_dates": [str(date) for date in filtered_dates],  # Convert to string
+        "title": str(title),
         "urls": cleaned_urls,
-        "ticker": ticker,
-        "description": description,
+        "ticker": str(ticker),
+        "description": str(description),
     }
 
 @predict_bp.route("/predict", methods=["POST"])
