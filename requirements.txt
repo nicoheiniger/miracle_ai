@@ -1,3 +1,7 @@
-pytest
-re
+Flask
+pandas
+joblib
+dateparser
+sumy
+spacy
 emoji
